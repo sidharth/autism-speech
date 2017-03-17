@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context="ankr.autismhearing.NameFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Autism Hearing"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"/>
+    <EditText
+        android:id="@+id/edittext_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:inputType="textNoSuggestions"
+        android:hint="eg. Rahul"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"/>
+    <EditText
+        android:id="@+id/edittext_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:inputType="textNoSuggestions"
+        android:hint="M or F"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DOB (DD/MM/YYY)"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"/>
+    <EditText
+        android:id="@+id/edittext_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:inputType="textNoSuggestions"
+        android:hint="e.g. 31/02/2001"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Native Language"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"/>
+    <EditText
+        android:id="@+id/edittext_nativelang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:inputType="textNoSuggestions"
+        android:hint="e.g. Hindi"/>
+
+
+    <Button
+        android:id="@+id/button_submit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New Session"
+        android:textSize="20sp"
+        android:drawablePadding="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:backgroundTint="@android:color/white"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="40dp"/>
+
+
+</LinearLayout>
