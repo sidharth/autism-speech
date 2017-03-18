@@ -52,10 +52,6 @@ public class DrumFragment extends Fragment {
         this.mode = mode;
     }
 
-    public interface OnDrumModeChangeListener {
-
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,12 +83,12 @@ public class DrumFragment extends Fragment {
             buttonG.startAnimation(blink);
             textView.setText("Instruction To Parent");
             textView2.setText("Tap each of the strings below");
-        } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+        } else if (mode == StringMode.CHILD_TOUCH_ALL) {
             buttonC.startAnimation(blink);
-            deactivateButton(buttonE);
-            deactivateButton(buttonG);
-            textView.setText("Instruction To Parent");
-            textView2.setText("Tap on the blinking string and hum the note");
+            buttonE.startAnimation(blink);
+            buttonG.startAnimation(blink);
+            textView.setText("Instruction To Child");
+            textView2.setText("Tap each of the strings below");
         }
 
         c = MediaPlayer.create(getContext(), R.raw.d1);
@@ -104,9 +100,9 @@ public class DrumFragment extends Fragment {
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.mp[0].start();
+                activity.drumPlayer[0].start();
                 buttonC.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL) {
+                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     bc = true;
                     allStringsPressed();
                 } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
@@ -121,9 +117,9 @@ public class DrumFragment extends Fragment {
         buttonE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.mp[1].start();
+                activity.drumPlayer[1].start();
                 buttonE.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL) {
+                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     be = true;
                     allStringsPressed();
                 } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
@@ -137,9 +133,9 @@ public class DrumFragment extends Fragment {
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.mp[2].start();
+                activity.drumPlayer[2].start();
                 buttonG.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL) {
+                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     bg = true;
                     allStringsPressed();
                 } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
@@ -156,14 +152,19 @@ public class DrumFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mode == StringMode.PARENT_TOUCH_ALL) {
-//                    callback.switchToStringParam(StringMode.PARENT_TOUCH_ORDERED);
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
-//                    callback.switchToWordTrainMode(StringMode.PARENT_WORD_TRAIN);
+                    callback.switchToDrumParam(StringMode.CHILD_TOUCH_ALL);
+                } else if (mode == StringMode.CHILD_TOUCH_ALL) {
+                    callback.switchToDrumWordTrainMode(StringMode.CHILD_WORD_TRAIN);
                 }
             }
         });
 
         return v;
+    }
+
+    public interface OnDrumModeChangeListener {
+        void switchToDrumParam(StringMode mode);
+        void switchToDrumWordTrainMode(StringMode mode);
     }
 
     void allStringsPressed() {

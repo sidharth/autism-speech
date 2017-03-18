@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="ankr.autismhearing.DrumTrainFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/colorPrimaryDark"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="4"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/textview_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:text="Hel-lo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Instruction to Parent"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Tap the circle and sing the word by syllable"
+            android:gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/container_string_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="4dp">
+            <Button
+                android:id="@+id/button_c"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                app:backgroundTint="@color/colorPrimaryDark"
+                android:shadowColor="@android:color/transparent"
+                />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/container_string_g"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:padding="4dp">
+            <Button
+                android:id="@+id/button_e"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                app:backgroundTint="@color/colorPrimaryDark"
+                android:layout_marginRight="10dp"
+                android:shadowColor="@android:color/transparent"/>
+
+            <Button
+                android:id="@+id/button_g"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/circle"
+                app:backgroundTint="@color/colorPrimaryDark"
+                android:shadowColor="@android:color/transparent"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_next_stage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next >"
+            android:textSize="20sp"
+            android:drawablePadding="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@null"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

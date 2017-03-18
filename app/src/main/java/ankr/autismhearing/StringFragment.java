@@ -92,6 +92,18 @@ public class StringFragment extends Fragment {
             deactivateButton(buttonG);
             textView.setText("Instruction To Parent");
             textView2.setText("Tap on the blinking string and hum the note");
+        } else if (mode == StringMode.CHILD_TOUCH_ALL) {
+            buttonC.startAnimation(blink);
+            buttonE.startAnimation(blink);
+            buttonG.startAnimation(blink);
+            textView.setText("Instruction To Child");
+            textView2.setText("Tap each of the strings below");
+        } else if (mode == StringMode.CHILD_TOUCH_ORDERED) {
+            buttonC.startAnimation(blink);
+            deactivateButton(buttonE);
+            deactivateButton(buttonG);
+            textView.setText("Instruction To Child");
+            textView2.setText("Tap on the blinking string and hum the note");
         }
 
         c = MediaPlayer.create(getContext(), R.raw.c);
@@ -105,10 +117,10 @@ public class StringFragment extends Fragment {
             public void onClick(View v) {
                 activity.mp[0].start();
                 buttonC.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL) {
+                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     bc = true;
                     allStringsPressed();
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+                } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
                     deactivateButton(buttonC);
                     deactivateButton(buttonG);
                     activateButton(buttonE);
@@ -122,10 +134,10 @@ public class StringFragment extends Fragment {
             public void onClick(View v) {
                 activity.mp[1].start();
                 buttonE.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL) {
+                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     be = true;
                     allStringsPressed();
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+                } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
                     deactivateButton(buttonE);
                     activateButton(buttonG);
                     buttonG.startAnimation(blink);
@@ -138,10 +150,10 @@ public class StringFragment extends Fragment {
             public void onClick(View v) {
                 activity.mp[2].start();
                 buttonG.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL) {
+                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     bg = true;
                     allStringsPressed();
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+                } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
                     activateButton(buttonC);
                     buttonC.startAnimation(blink);
                     deactivateButton(buttonE);
@@ -155,8 +167,13 @@ public class StringFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mode == StringMode.PARENT_TOUCH_ALL) {
+                    callback.switchToStringParam(StringMode.CHILD_TOUCH_ALL);
+                } else if (mode == StringMode.CHILD_TOUCH_ALL) {
                     callback.switchToStringParam(StringMode.PARENT_TOUCH_ORDERED);
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+                }
+                else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+                    callback.switchToStringParam(StringMode.CHILD_TOUCH_ORDERED);
+                } else if (mode == StringMode.CHILD_TOUCH_ORDERED) {
                     callback.switchToWordTrainMode(StringMode.PARENT_WORD_TRAIN);
                 }
             }
@@ -166,8 +183,6 @@ public class StringFragment extends Fragment {
     }
 
     public interface OnModeChangeListener {
-        void switchToRecordMode();
-        void switchToViewMode();
         void switchToStringParam(StringMode mode);
         void switchToWordTrainMode(StringMode mode);
     }
