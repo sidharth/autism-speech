@@ -11,12 +11,18 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 }
 
@@ -37,4 +43,7 @@ dependencies {
     compile 'com.github.piasy:rxandroidaudio:1.4.0'
     compile 'com.github.piasy:AudioProcessor:1.4.0'
     compile 'com.github.adrielcafe:AndroidAudioRecorder:0.2.0'
+    compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.android.support:multidex:1.0.1'
+
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,10 +20,11 @@ import android.widget.TextView;
  */
 public class DrumFragment extends Fragment {
 
-    Button buttonC,
+    ImageView buttonC,
             buttonE,
-            buttonG,
-            buttonRecNext,
+            buttonG;
+
+    Button buttonRecNext,
             buttonViewRecordings,
             buttonContinue;
 
@@ -62,9 +64,9 @@ public class DrumFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
 
 
-        buttonC = (Button)v.findViewById(R.id.button_c);
-        buttonE = (Button)v.findViewById(R.id.button_e);
-        buttonG = (Button)v.findViewById(R.id.button_g);
+        buttonC = (ImageView)v.findViewById(R.id.button_c);
+        buttonE = (ImageView) v.findViewById(R.id.button_e);
+        buttonG = (ImageView) v.findViewById(R.id.button_g);
         buttonContinue = (Button)v.findViewById(R.id.button_continue_first_stage);
 
         container = (LinearLayout)v.findViewById(R.id.container_viewgroup);
@@ -154,7 +156,7 @@ public class DrumFragment extends Fragment {
                 if (mode == StringMode.PARENT_TOUCH_ALL) {
                     callback.switchToDrumParam(StringMode.CHILD_TOUCH_ALL);
                 } else if (mode == StringMode.CHILD_TOUCH_ALL) {
-                    callback.switchToDrumWordTrainMode(StringMode.CHILD_WORD_TRAIN);
+                    callback.switchToDrumWordTrainMode(StringMode.PARENT_WORD_TRAIN);
                 }
             }
         });
@@ -179,6 +181,16 @@ public class DrumFragment extends Fragment {
     }
 
     void activateButton(Button b) {
+        b.setEnabled(true);
+        b.setAlpha(1);
+    }
+
+    void deactivateButton(ImageView b) {
+        b.setEnabled(false);
+        b.setAlpha((float)0.3);
+    }
+
+    void activateButton(ImageView b) {
         b.setEnabled(true);
         b.setAlpha(1);
     }

@@ -5,6 +5,8 @@
     android:id="@+id/container_viewgroup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     tools:context="ankr.autismhearing.StringFragment"
     android:orientation="vertical"
     android:background="@android:color/white">
@@ -55,11 +57,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="4dp">
-        <Button
+        <ImageView
             android:id="@+id/button_c"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:backgroundTint="@color/colorPrimaryDark"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
+            android:src="@drawable/string"
             android:shadowColor="@android:color/transparent"
             />
     </LinearLayout>
@@ -70,11 +74,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="4dp">
-        <Button
+        <ImageView
             android:id="@+id/button_e"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/string"
             android:shadowColor="@android:color/transparent"/>
     </LinearLayout>
 
@@ -84,50 +88,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="4dp">
-        <Button
+        <ImageView
             android:id="@+id/button_g"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/string"
             android:shadowColor="@android:color/transparent"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/drums_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/button_drum_1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#fff" />
-
-        <Button
-            android:id="@+id/button_drum_2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#fff" />
-
-        <Button
-            android:id="@+id/button_drum3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#fff" />
-
     </LinearLayout>
 
 

@@ -1,6 +1,7 @@
 package ankr.autismhearing;
 
 
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,10 +24,10 @@ import org.w3c.dom.Text;
  */
 public class StringFragment extends Fragment {
 
-    Button buttonC,
+    ImageView buttonC,
             buttonE,
-            buttonG,
-            buttonRecNext,
+            buttonG;
+    Button buttonRecNext,
             buttonViewRecordings,
             buttonContinue;
 
@@ -33,8 +35,6 @@ public class StringFragment extends Fragment {
 
     ViewGroup container, stringC, stringE, stringG;
     View v;
-
-    MediaPlayer c, e, g;
 
     TextView textView, textView2;
 
@@ -65,9 +65,9 @@ public class StringFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
 
 
-        buttonC = (Button)v.findViewById(R.id.button_c);
-        buttonE = (Button)v.findViewById(R.id.button_e);
-        buttonG = (Button)v.findViewById(R.id.button_g);
+        buttonC = (ImageView) v.findViewById(R.id.button_c);
+        buttonE = (ImageView) v.findViewById(R.id.button_e);
+        buttonG = (ImageView) v.findViewById(R.id.button_g);
         buttonContinue = (Button)v.findViewById(R.id.button_continue_first_stage);
 
         container = (LinearLayout)v.findViewById(R.id.container_viewgroup);
@@ -105,10 +105,6 @@ public class StringFragment extends Fragment {
             textView.setText("Instruction To Child");
             textView2.setText("Tap on the blinking string and hum the note");
         }
-
-        c = MediaPlayer.create(getContext(), R.raw.c);
-        e = MediaPlayer.create(getContext(), R.raw.e);
-        g = MediaPlayer.create(getContext(), R.raw.g);
 
         callback = (OnModeChangeListener) getActivity();
 
@@ -179,6 +175,7 @@ public class StringFragment extends Fragment {
             }
         });
 
+
         return v;
     }
 
@@ -193,6 +190,16 @@ public class StringFragment extends Fragment {
         }
     }
 
+    void deactivateButton(ImageView b) {
+        b.setEnabled(false);
+        b.setAlpha((float)0.3);
+    }
+
+    void activateButton(ImageView b) {
+        b.setEnabled(true);
+        b.setAlpha((float)1.0);
+    }
+
     void deactivateButton(Button b) {
         b.setEnabled(false);
         b.setAlpha((float)0.3);
@@ -200,7 +207,7 @@ public class StringFragment extends Fragment {
 
     void activateButton(Button b) {
         b.setEnabled(true);
-        b.setAlpha(1);
+        b.setAlpha((float)1.0);
     }
 
 }

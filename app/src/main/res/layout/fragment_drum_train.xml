@@ -8,10 +8,12 @@
     tools:context="ankr.autismhearing.DrumTrainFragment">
 
     <ImageView
+        android:id="@+id/imageview_drum_train"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/colorPrimaryDark"/>
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +31,7 @@
             android:text="Hel-lo"/>
 
         <TextView
+            android:id="@+id/textview_instruction_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -50,12 +53,11 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="4dp">
-            <Button
+            <ImageView
                 android:id="@+id/button_c"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/circle"
-                app:backgroundTint="@color/colorPrimaryDark"
+                android:src="@drawable/drum"
                 android:shadowColor="@android:color/transparent"
                 />
         </LinearLayout>
@@ -69,22 +71,20 @@
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:padding="4dp">
-            <Button
+            <ImageView
                 android:id="@+id/button_e"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/circle"
-                app:backgroundTint="@color/colorPrimaryDark"
                 android:layout_marginRight="10dp"
+                android:src="@drawable/drum"
                 android:shadowColor="@android:color/transparent"/>
 
-            <Button
+            <ImageView
                 android:id="@+id/button_g"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/circle"
-                app:backgroundTint="@color/colorPrimaryDark"
+                android:src="@drawable/drum"
                 android:shadowColor="@android:color/transparent"/>
 
         </LinearLayout>

@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textview_result_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="WELL DONE!"
@@ -25,9 +26,10 @@
             android:layout_marginTop="20dp"/>
 
         <TextView
+            android:id="@+id/textview_result_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You have mastered this word"
+            android:text="You have completed this word"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_marginTop="25dp"/>

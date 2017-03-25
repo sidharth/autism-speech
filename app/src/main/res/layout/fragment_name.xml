@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:text="Autism Hearing"
+        android:text="Sing n' Speak"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
         android:textColor="@android:color/white"/>
@@ -30,7 +30,8 @@
         android:textSize="15sp"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
-        android:hint="eg. Rahul"/>
+        android:hint="eg. rs"
+        android:textAlignment="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,12 +46,13 @@
         android:textSize="15sp"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
-        android:hint="M or F"/>
+        android:hint="M or F"
+        android:textAlignment="center"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DOB (DD/MM/YYY)"
+        android:text="DOB (DD/MM/YYYY)"
         android:textSize="15sp"
         android:textColor="@android:color/white"/>
     <EditText
@@ -60,7 +62,8 @@
         android:textSize="15sp"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
-        android:hint="e.g. 31/02/2001"/>
+        android:hint="e.g. 31-02-2001"
+        android:textAlignment="center"/>
 
 
     <TextView
@@ -76,7 +79,8 @@
         android:textSize="15sp"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
-        android:hint="e.g. Hindi"/>
+        android:hint="e.g. Hindi"
+        android:textAlignment="center"/>
 
 
     <Button

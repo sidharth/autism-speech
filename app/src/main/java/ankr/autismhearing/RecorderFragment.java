@@ -33,6 +33,9 @@ public class RecorderFragment extends Fragment {
 //    Button recordButton;
 
     Button recordChild, recordParent;
+    String name, gender, dob, language, word;
+    String childPath, parentPath;
+    String childFileName, parentFileName;
 
     int lastPressed = 0;
 
@@ -48,22 +51,40 @@ public class RecorderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recorder, container, false);
-
         final MainActivity activity = (MainActivity)getActivity();
-        callback = (OnRecordingFinishedListener)activity;
+        callback = activity;
 
         recordParent = (Button)v.findViewById(R.id.button_record_parent);
         recordChild = (Button)v.findViewById(R.id.button_record_child);
 
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        name = sharedPref.getString("name","n");
+        gender = sharedPref.getString("gender", "a");
+        dob = sharedPref.getString("birthday", "00000000");
+        language = sharedPref.getString("language","lang");
+        word = activity.words[activity.wordIndex];
+
+        Log.d("folderyay", activity.baseFolder.toString());
+
+        childFileName = name + "_" +
+                gender + "_"+
+                dob + "_" +
+                word;
+
+        parentFileName = childFileName + "_parent";
+
+        childPath = activity.baseFolder.toString() + File.separator +
+                childFileName;
+        parentPath = childPath + "_parent";
+
         recordParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio.wav";
                 int color = getResources().getColor(R.color.colorPrimary);
                 int requestCode = 0;
                 AndroidAudioRecorder.with(getActivity())
                         // Required
-                        .setFilePath(filePath)
+                        .setFilePath(parentPath)
                         .setColor(color)
                         .setRequestCode(requestCode)
 
@@ -84,12 +105,11 @@ public class RecorderFragment extends Fragment {
         recordChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio.wav";
                 int color = getResources().getColor(R.color.colorPrimaryDark);
                 int requestCode = 0;
                 AndroidAudioRecorder.with(getActivity())
                         // Required
-                        .setFilePath(filePath)
+                        .setFilePath(childPath)
                         .setColor(color)
                         .setRequestCode(requestCode)
 
@@ -110,6 +130,7 @@ public class RecorderFragment extends Fragment {
     }
 
     public void finishCurrentRecording() {
+        final MainActivity activity = (MainActivity)getActivity();
         Log.d("lastpressed", "something");
 
         if (lastPressed == 1) {
@@ -124,6 +145,10 @@ public class RecorderFragment extends Fragment {
 
         if (recordParent.getText().toString().contains("✓") &&
                 recordChild.getText().toString().contains("✓")) {
+            Log.d("filename", childFileName);
+            Log.d("filename", parentFileName);
+            activity.uploadChildFilesToSubjectFolder(childFileName);
+            activity.uploadParentFilesToSubjectFolder(parentFileName);
             callback.switchToWordResultMode();
         }
     }

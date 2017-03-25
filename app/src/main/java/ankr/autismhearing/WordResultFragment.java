@@ -14,9 +14,10 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class WordResultFragment extends Fragment {
-    TextView textViewPercent;
+    TextView textViewPercent, textViewTitle, textViewSubtitle;
     Button buttonNextWord;
     OnNextWordListener callback;
+    String percent;
 
     public WordResultFragment() {
         // Required empty public constructor
@@ -32,24 +33,39 @@ public class WordResultFragment extends Fragment {
         callback = (OnNextWordListener)activity;
         textViewPercent = (TextView)v.findViewById(R.id.textview_percent_done);
         buttonNextWord = (Button)v.findViewById(R.id.button_next_word);
+        textViewTitle = (TextView)v.findViewById(R.id.textview_result_title);
+        textViewSubtitle = (TextView)v.findViewById(R.id.textview_result_subtitle);
 
+        percent = String.format("%.2f",((float)(activity.wordIndex+1) * 100) / activity.words.length);
         activity.wordIndex++;
-        textViewPercent.setText(String.valueOf(activity.wordIndex) + "%");
+        activity.wordIndex %= 15;
+
+        textViewPercent.setText(percent + "%");
+
+        if (activity.wordIndex  == 0) {
+            textViewTitle.setText("CONGRATULATIONS");
+            textViewSubtitle.setText("You're all done :-)");
+            buttonNextWord.setText("+ New Participant");
+        }
 
         buttonNextWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.switchToNextWord();
+                if (activity.wordIndex != 0) {
+                    callback.switchToNextWord();
+                }
+                else {
+                    callback.switchToNextParticipant();
+                }
             }
         });
-
-
 
         return v;
     }
 
     public interface OnNextWordListener {
         void switchToNextWord();
+        void switchToNextParticipant();
     }
 
 }
