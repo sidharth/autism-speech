@@ -8,25 +8,23 @@
     tools:context="ankr.autismhearing.DrumTrainFragment">
 
     <ImageView
-        android:id="@+id/imageview_drum_train"
+        android:id="@+id/imageview_word_train_drum"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true"/>
+        android:layout_weight="4"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="4"
+        android:layout_weight="8"
         android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/textview_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="@dimen/word_train"
             android:gravity="center_horizontal"
             android:text="Hel-lo"/>
 
@@ -36,54 +34,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Instruction to Parent"
-            android:textSize="15sp"
+            android:textSize="@dimen/instruction_title"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Tap the circle and sing the word by syllable"
+            android:textSize="@dimen/instruction_subtitle"
+            android:text="Tap the drum(s) while saying the word by syllable"
             android:gravity="center_horizontal"/>
 
         <LinearLayout
             android:id="@+id/container_string_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:gravity="center_horizontal"
             android:padding="4dp">
             <ImageView
                 android:id="@+id/button_c"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="20dp"
                 android:src="@drawable/drum"
                 android:shadowColor="@android:color/transparent"
                 />
-        </LinearLayout>
 
-
-
-        <LinearLayout
-            android:id="@+id/container_string_g"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:padding="4dp">
             <ImageView
                 android:id="@+id/button_e"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginRight="10dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="20dp"
                 android:src="@drawable/drum"
                 android:shadowColor="@android:color/transparent"/>
 
             <ImageView
                 android:id="@+id/button_g"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="20dp"
                 android:src="@drawable/drum"
                 android:shadowColor="@android:color/transparent"/>
 
@@ -104,7 +94,6 @@
             android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>

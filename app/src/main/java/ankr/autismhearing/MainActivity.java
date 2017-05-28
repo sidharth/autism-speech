@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -47,7 +48,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, StringFragment.OnModeChangeListener,
         NameFragment.OnNameSubmitListener, WordTrainFragment.OnStageChangeListener, DrumFragment.OnDrumModeChangeListener,
-        DrumTrainFragment.OnFinishDrumModeListener, RecorderFragment.OnRecordingFinishedListener, WordResultFragment.OnNextWordListener {
+        DrumTrainFragment.OnFinishDrumModeListener, RecorderFragment.OnRecordingFinishedListener, WordResultFragment.OnNextWordListener,
+        IntermediateFragment.SwitchOutIntermediateStageListener {
 
 
     private static final String TAG = "drive-quickstart";
@@ -57,11 +59,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     public static final String DRIVE_ROOT = "ahsounds";
 
-    public MediaPlayer[] mp = new MediaPlayer[3];
     public MediaPlayer[] drumPlayer = new MediaPlayer[3];
     public MediaPlayer[] stringPlayer = new MediaPlayer[6];
+    public MediaPlayer firework = new MediaPlayer();
+    public MediaPlayer rain = new MediaPlayer();
+
     public String[] words;
     public int wordIndex = 0;
+    public int syllables[];
     public File basePath;
     public File baseFolder;
 
@@ -69,11 +74,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public DriveId subjectFolderId;
 
     public String childFilename, parentFilename;
+    public boolean isPlayerSet = false;
 
     GoogleApiClient googleApiClient;
 
-    RecorderFragment recorderFragment;
 
+    RecorderFragment recorderFragment;
 
     final ResultCallback<DriveFolder.DriveFolderResult> newFolderCallback = new ResultCallback<DriveFolder.DriveFolderResult>() {
         @Override
@@ -109,22 +115,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Util.requestPermission(this, Manifest.permission.RECORD_AUDIO);
         Util.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-
-
-        mp[0] = MediaPlayer.create(this, R.raw.c);
-        mp[1] = MediaPlayer.create(this, R.raw.e);
-        mp[2] = MediaPlayer.create(this, R.raw.g);
-
-        drumPlayer[0] = MediaPlayer.create(this, R.raw.d1);
-        drumPlayer[1] = MediaPlayer.create(this, R.raw.d2);
-        drumPlayer[2] = MediaPlayer.create(this, R.raw.d3);
+        createMediaPlayers();
 
         words = getResources().getStringArray(R.array.wordlist);
         shuffleArray(words);
+        countSyllables();
 
 
-        NameFragment nameFragment = new NameFragment();
-        StringFragment stringFragment = new StringFragment();
+        NameFragment nameFragment = new NameFragment(); // use this
+//        StringFragment stringFragment = new StringFragment();
+//        WordProcessingFragment wordProcessingFragment = new WordProcessingFragment();
+        DashboardFragment dashboardFragment = new DashboardFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container_fragment, nameFragment)
@@ -145,6 +146,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
+    void countSyllables() {
+        syllables = new int[words.length];
+
+        for (int i = 0; i < words.length; i++) {
+            String w = words[i];
+            syllables[i] = 1;
+            for (int j = 0; j < w.length(); j++) {
+                if (w.charAt(j) == '-' || w.charAt(j) == ' ') {
+                    syllables[i]++;
+                }
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,10 +176,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void switchToStringMode() {
-        StringFragment stringFragment = new StringFragment(StringMode.PARENT_TOUCH_ALL);
+        IntermediateFragment fragment = new IntermediateFragment(1);
+//        StringFragment stringFragment = new StringFragment(StringMode.PARENT_TOUCH_ALL);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        fragmentTransaction.replace(R.id.container_fragment, stringFragment)
+        fragmentTransaction.replace(R.id.container_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -201,10 +217,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void switchToStageDrumMode(StringMode mode) {
-        DrumFragment drumFragment = new DrumFragment(mode);
+        IntermediateFragment fragment = new IntermediateFragment(2);
+//        DrumFragment drumFragment = new DrumFragment(mode);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        fragmentTransaction.replace(R.id.container_fragment, drumFragment)
+        fragmentTransaction.replace(R.id.container_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -241,10 +258,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void switchToRecorder() {
-        recorderFragment = new RecorderFragment();
+//        recorderFragment = new RecorderFragment();
+        IntermediateFragment fragment = new IntermediateFragment(3);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        fragmentTransaction.replace(R.id.container_fragment, recorderFragment)
+        fragmentTransaction.replace(R.id.container_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
 
@@ -252,10 +270,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void switchToWordResultMode() {
-        WordResultFragment resultFragment = new WordResultFragment();
+        WordProcessingFragment processingFragment = new WordProcessingFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        fragmentTransaction.replace(R.id.container_fragment, resultFragment)
+        fragmentTransaction.replace(R.id.container_fragment, processingFragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -263,7 +281,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void switchToNextWord() {
         FragmentManager fm = getSupportFragmentManager();
-        int count = fm.getBackStackEntryCount()-3;
+        int count = fm.getBackStackEntryCount()-1;
+        Log.d("sid_stacks", String.valueOf(count));
         for(int i = 0; i < count; ++i) {
             fm.popBackStackImmediate();
         }
@@ -277,6 +296,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             fm.popBackStackImmediate();
         }
     }
+
+    @Override
+    public void OnIntermediateFinish(int stage) {
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+
+        switch (stage) {
+            case 1:
+                ft.replace(R.id.container_fragment, new StringFragment(StringMode.PARENT_TOUCH_ALL));
+                break;
+            case 2:
+                ft.replace(R.id.container_fragment, new DrumFragment(StringMode.PARENT_TOUCH_ALL));
+                break;
+            case 3:
+                recorderFragment = new RecorderFragment();
+                ft.replace(R.id.container_fragment, recorderFragment);
+        }
+        ft.commit();
+    }
+
+
+
 
     // GOOGLE DRIVE API
 
@@ -506,5 +547,37 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     Log.i(TAG, "Created a file with content: " + result.getDriveFile().getDriveId());
                 }
             };
+
+    void releaseMediaPlayers() {
+        for (int i=0; i<6; i++) {
+            stringPlayer[i].release();
+        }
+
+        for (int i=0; i<3; i++) {
+            drumPlayer[i].release();
+        }
+
+        rain.release();
+        firework.release();
+
+        isPlayerSet = false;
+    }
+
+    void createMediaPlayers() {
+        drumPlayer[0] = MediaPlayer.create(this, R.raw.d1);
+        drumPlayer[1] = MediaPlayer.create(this, R.raw.d2);
+        drumPlayer[2] = MediaPlayer.create(this, R.raw.d3);
+
+        stringPlayer[0] = MediaPlayer.create(this, R.raw.t0);
+        stringPlayer[1] = MediaPlayer.create(this, R.raw.t1);
+        stringPlayer[2] = MediaPlayer.create(this, R.raw.t2);
+        stringPlayer[3] = MediaPlayer.create(this, R.raw.t3);
+        stringPlayer[4] = MediaPlayer.create(this, R.raw.a);
+        stringPlayer[5] = MediaPlayer.create(this, R.raw.b);
+
+        rain = MediaPlayer.create(this, R.raw.rain);
+        firework = MediaPlayer.create(this, R.raw.firework);
+        isPlayerSet = true;
+    }
 }
 

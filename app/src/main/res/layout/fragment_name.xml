@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
@@ -11,8 +12,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="Sing n' Speak"
+        android:textSize="@dimen/app_title"
+        android:text="SING n' SPEAK"
+        android:textStyle="bold"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
         android:textColor="@android:color/white"/>
@@ -20,14 +22,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Name"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"/>
     <EditText
         android:id="@+id/edittext_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
         android:hint="eg. rs"
@@ -37,13 +40,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gender"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"/>
     <EditText
         android:id="@+id/edittext_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
         android:hint="M or F"
@@ -53,13 +56,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DOB (DD/MM/YYYY)"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"/>
     <EditText
         android:id="@+id/edittext_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
         android:hint="e.g. 31-02-2001"
@@ -70,13 +73,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Native Language"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"/>
     <EditText
         android:id="@+id/edittext_nativelang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_form"
         android:textColor="@android:color/white"
         android:inputType="textNoSuggestions"
         android:hint="e.g. Hindi"
@@ -88,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start New Session"
-        android:textSize="20sp"
+        android:textSize="@dimen/input_form"
         android:drawablePadding="20dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
@@ -98,5 +101,16 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_marginTop="40dp"/>
 
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/button_continue_as_prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:padding="20dp"
+        fancy:fb_textSize="@dimen/input_form"
+        fancy:fb_radius="10dp"
+        fancy:fb_iconResource="@drawable/profile_boy"
+        fancy:fb_text="CONTINUE AS PREVIOUS"
+        fancy:fb_useSystemFont="true"/>
 
 </LinearLayout>

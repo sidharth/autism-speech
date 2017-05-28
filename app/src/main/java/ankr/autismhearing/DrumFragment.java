@@ -3,6 +3,7 @@ package ankr.autismhearing;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+import cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import cafe.adriel.androidaudiorecorder.model.AudioSource;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,16 +30,10 @@ public class DrumFragment extends Fragment {
             buttonE,
             buttonG;
 
-    Button buttonRecNext,
-            buttonViewRecordings,
-            buttonContinue;
+    Button buttonContinue;
 
     Animation blink;
-
-    ViewGroup container, stringC, stringE, stringG;
     View v;
-
-    MediaPlayer c, e, g;
 
     TextView textView, textView2;
 
@@ -69,7 +69,6 @@ public class DrumFragment extends Fragment {
         buttonG = (ImageView) v.findViewById(R.id.button_g);
         buttonContinue = (Button)v.findViewById(R.id.button_continue_first_stage);
 
-        container = (LinearLayout)v.findViewById(R.id.container_viewgroup);
         textView = (TextView)v.findViewById(R.id.textview_instruction_title);
         textView2 = (TextView)v.findViewById(R.id.textview_instruction_subtitle);
 
@@ -84,18 +83,14 @@ public class DrumFragment extends Fragment {
             buttonE.startAnimation(blink);
             buttonG.startAnimation(blink);
             textView.setText("Instruction To Parent");
-            textView2.setText("Tap each of the strings below");
+            textView2.setText("Beat the blinking drums below");
         } else if (mode == StringMode.CHILD_TOUCH_ALL) {
             buttonC.startAnimation(blink);
             buttonE.startAnimation(blink);
             buttonG.startAnimation(blink);
             textView.setText("Instruction To Child");
-            textView2.setText("Tap each of the strings below");
+            textView2.setText("Beat the blinking drums below");
         }
-
-        c = MediaPlayer.create(getContext(), R.raw.d1);
-        e = MediaPlayer.create(getContext(), R.raw.d2);
-        g = MediaPlayer.create(getContext(), R.raw.d3);
 
         callback = (OnDrumModeChangeListener) getActivity();
 

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -24,14 +26,15 @@ public class WordTrainFragment extends Fragment {
     private static String TAG = "word-train-fragment";
 
     StringMode mode;
-    Button circleButton, nextStageButton;
+    Button nextStageButton;
     ImageView image;
-    int counter = 0;
     int syllables = 1;
     String word;
     String wordResource;
 
     TextView textViewWord;
+    ImageView strings[] = new ImageView[6];
+    ImageView instructionImage;
 
     OnStageChangeListener callback;
 
@@ -62,9 +65,16 @@ public class WordTrainFragment extends Fragment {
 
         textViewWord = (TextView)v.findViewById(R.id.textview_word);
         textViewInstructionTitle = (TextView)v.findViewById(R.id.textview_instruction_title);
-        circleButton = (Button)v.findViewById(R.id.button_circle);
         nextStageButton = (Button)v.findViewById(R.id.button_next_stage);
         image = (ImageView)v.findViewById(R.id.imageview_word_train);
+        strings[0] = (ImageView)v.findViewById(R.id.button_c);
+        strings[1] = (ImageView)v.findViewById(R.id.button_d);
+        strings[2] = (ImageView)v.findViewById(R.id.button_f);
+        strings[3] = (ImageView)v.findViewById(R.id.button_g);
+//        strings[4] = (ImageView)v.findViewById(R.id.button_a);
+//        strings[5] = (ImageView)v.findViewById(R.id.button_b);
+
+        instructionImage = (ImageView)v.findViewById(R.id.instruction_hand_string);
 
         HashMap<String, Integer> imageRes = new HashMap<>();
         imageRes.put("balloon", R.drawable.balloon);
@@ -87,39 +97,52 @@ public class WordTrainFragment extends Fragment {
 
 
         word = activity.words[activity.wordIndex];
+        syllables = activity.syllables[activity.wordIndex];
         wordResource = word.toLowerCase().replaceAll("[^a-z]","");
 
         Log.d(TAG, wordResource);
 
-//        image.setImageResource(getContext().getResources().getIdentifier(word, "drawable", getContext().getPackageName()));
-        image.setImageResource(imageRes.get(wordResource));
+        Picasso.with(getActivity())
+                .load(imageRes.get(wordResource))
+                .resize(500, 375)
+                .centerInside()
+                .into(image);
+//        image.setImageDrawable(getResources().getDrawable(imageRes.get(wordResource)));
 
-        for (int i=0; i<word.length(); i++) {
-            if (word.charAt(i) =='-' || word.charAt(i) ==' ') {
-                syllables++;
-            }
-        }
+        Picasso.with(getActivity())
+                .load(R.drawable.instruction_hand_string)
+                .resize(150, 150)
+                .centerInside()
+                .into(instructionImage);
 
         if (mode == StringMode.CHILD_TOUCH_ALL) {
             textViewInstructionTitle.setText("Instruction to Child");
         }
 
-        textViewWord.setText(word);
+        for (int i=syllables; i<4; i++) {
+            strings[i].setVisibility(View.INVISIBLE);
+        }
 
-        circleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.mp[counter].start();
-                counter = (counter+1)%syllables;
-            }
-        });
+        for (int i=0; i<syllables; i++) {
+            strings[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = view.getContentDescription().charAt(0)-'0';
+                    activity.stringPlayer[index].start();
+                }
+            });
+        }
+
+        textViewWord.setText(word);
 
         nextStageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mode == StringMode.CHILD_TOUCH_ALL) {
+                    image.setVisibility(View.GONE);
                     callback.switchToStageDrumMode(StringMode.PARENT_TOUCH_ALL);
                 } else {
+                    image.setVisibility(View.GONE);
                     callback.switchToStringWordTrainModeParam(StringMode.CHILD_TOUCH_ALL);
                 }
             }

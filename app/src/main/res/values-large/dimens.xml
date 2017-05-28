@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="instruction_title">40sp</dimen>
+    <dimen name="instruction_subtitle">25sp</dimen>
+    <dimen name="continue_first_stage">30sp</dimen>
+    <dimen name="word_train">40sp</dimen>
+    <dimen name="input_form">20sp</dimen>
+    <dimen name="app_title">40sp</dimen>
+
+</resources>

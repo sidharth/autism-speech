@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Instruction To Parent"
+            android:textSize="@dimen/instruction_title"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:textColor="@android:color/background_dark"/>
@@ -33,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textSize="@dimen/instruction_subtitle"
             android:text="Tap the blinking strings below"
             android:layout_marginTop="15dp"
             android:textColor="@android:color/background_dark"/>
@@ -42,21 +44,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Continue"
+            android:textSize="@dimen/continue_first_stage"
             android:layout_marginTop="15dp"
             app:backgroundTint="@color/colorPrimaryDark"
             android:alpha="0.15"
             android:enabled="false"
             android:textColor="@android:color/white"/>
 
+        <ImageView
+            android:id="@+id/instruction_hand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/instruction_hand"/>
     </LinearLayout>
+
+
 
 
     <LinearLayout
         android:id="@+id/container_string_c"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="4dp">
+        android:layout_weight="1">
         <ImageView
             android:id="@+id/button_c"
             android:layout_width="match_parent"
@@ -65,36 +74,87 @@
             android:paddingRight="0dp"
             android:src="@drawable/string"
             android:shadowColor="@android:color/transparent"
+            android:contentDescription="0"
             />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/container_string_e"
+        android:id="@+id/container_string_d"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="4dp">
+        android:layout_weight="1">
         <ImageView
-            android:id="@+id/button_e"
+            android:id="@+id/button_d"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
             android:src="@drawable/string"
-            android:shadowColor="@android:color/transparent"/>
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_string_f"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/button_f"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
+            android:src="@drawable/string"
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="2"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/container_string_g"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="4dp">
+        android:layout_weight="1">
         <ImageView
             android:id="@+id/button_g"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
             android:src="@drawable/string"
-            android:shadowColor="@android:color/transparent"/>
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="3"
+            />
     </LinearLayout>
 
+    <!--<LinearLayout-->
+        <!--android:id="@+id/container_string_a"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/button_a"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/string"-->
+            <!--android:shadowColor="@android:color/transparent"-->
+            <!--android:contentDescription="4"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/container_string_b"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/button_b"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/string"-->
+            <!--android:shadowColor="@android:color/transparent"-->
+            <!--android:contentDescription="5"/>-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

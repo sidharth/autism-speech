@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Instruction To Parent"
+            android:textSize="@dimen/instruction_title"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:textColor="@android:color/background_dark"/>
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Tap the blinking strings below"
+            android:textSize="@dimen/instruction_subtitle"
             android:layout_marginTop="15dp"
             android:textColor="@android:color/background_dark"/>
 
@@ -40,29 +42,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Continue"
+            android:textSize="@dimen/continue_first_stage"
             android:layout_marginTop="15dp"
             app:backgroundTint="@color/colorPrimaryDark"
             android:alpha="0.15"
             android:enabled="false"
             android:textColor="@android:color/white"/>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/container_string_c"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:padding="4dp">
         <ImageView
-            android:id="@+id/button_c"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/drum"
-            android:shadowColor="@android:color/transparent"
-            />
+            android:id="@+id/instruction_hand_drum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/instruction_hand_drum"/>
+
     </LinearLayout>
 
 
@@ -71,22 +63,34 @@
         android:id="@+id/container_string_g"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="40dp"
         android:layout_weight="2"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/button_c"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/drum"
+            android:shadowColor="@android:color/transparent"
+            />
+
         <ImageView
             android:id="@+id/button_e"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
             android:src="@drawable/drum"
-            android:layout_marginRight="10dp"
             android:shadowColor="@android:color/transparent"/>
 
         <ImageView
             android:id="@+id/button_g"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
             android:src="@drawable/drum"
             android:shadowColor="@android:color/transparent"/>
 

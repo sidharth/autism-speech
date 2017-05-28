@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/intermediate_container"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ankr.autismhearing.IntermediateFragment"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/intermediate_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STAGE 1"
+        android:textSize="60sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_margin="20dp" />
+
+    <TextView
+        android:id="@+id/intermediate_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hum the sound"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"/>
+
+
+</LinearLayout>

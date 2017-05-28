@@ -31,6 +31,7 @@ public class ViewRecordingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_view_recordings, container, false);
+        final MainActivity activity = (MainActivity)getActivity();
 
         File basePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
                 + File.separator + "ahrecordings");
@@ -38,9 +39,9 @@ public class ViewRecordingsFragment extends Fragment {
         File[] files = basePath.listFiles();
 
         RecyclerView rv = (RecyclerView)v.findViewById(R.id.recycler_view_recordings);
-        ViewRecordingsAdapter adapter = new ViewRecordingsAdapter(files);
+//        ViewRecordingsAdapter adapter = new ViewRecordingsAdapter(getActivity(), files);
 
-        rv.setAdapter(adapter);
+//        rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);

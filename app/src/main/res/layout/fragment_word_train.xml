@@ -11,22 +11,21 @@
         android:id="@+id/imageview_word_train"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true"/>
+        android:layout_weight="3"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/textview_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="@dimen/word_train"
             android:gravity="center_horizontal"
             android:text="Hel-lo"/>
 
@@ -36,25 +35,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Instruction to Parent"
-            android:textSize="15sp"
+            android:textSize="@dimen/instruction_title"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Tap the circle and sing the word by syllable"
+            android:textSize="@dimen/instruction_subtitle"
+            android:text="Play the string sing the syllable"
             android:gravity="center_horizontal"/>
 
-        <Button
-            android:id="@+id/button_circle"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#fff" />
+        <ImageView
+            android:id="@+id/instruction_hand_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/instruction_hand_string"/>
 
         <Button
             android:id="@+id/button_next_stage"
@@ -68,10 +64,106 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:background="@null"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginTop="40dp"/>
+            android:textColor="@color/colorPrimaryDark"/>
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/container_string_c"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/button_c"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
+            android:src="@drawable/string"
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="0"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_string_d"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/button_d"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
+            android:src="@drawable/string"
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_string_f"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/button_f"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
+            android:src="@drawable/string"
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="2"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_string_g"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/button_g"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="0dp"
+            android:src="@drawable/string"
+            android:shadowColor="@android:color/transparent"
+            android:contentDescription="3"
+            />
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/container_string_a"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/button_a"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/string"-->
+            <!--android:shadowColor="@android:color/transparent"-->
+            <!--android:contentDescription="4"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/container_string_b"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/button_b"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/string"-->
+            <!--android:shadowColor="@android:color/transparent"-->
+            <!--android:contentDescription="5"/>-->
+    <!--</LinearLayout>-->
 
 
 

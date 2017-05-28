@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -52,6 +55,10 @@ public class DrumTrainFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
         callback = (OnFinishDrumModeListener)activity;
 
+        if (!activity.isPlayerSet) {
+            activity.createMediaPlayers();
+        }
+
         HashMap<String, Integer> imageRes = new HashMap<>();
         imageRes.put("balloon", R.drawable.balloon);
         imageRes.put("chair", R.drawable.chair);
@@ -70,7 +77,7 @@ public class DrumTrainFragment extends Fragment {
         imageRes.put("train", R.drawable.train);
         imageRes.put("tummy", R.drawable.tummy);
 
-        image = (ImageView)v.findViewById(R.id.imageview_drum_train);
+        image = (ImageView)v.findViewById(R.id.imageview_word_train_drum);
         buttonC = (ImageView)v.findViewById(R.id.button_c);
         buttonE = (ImageView)v.findViewById(R.id.button_e);
         buttonG = (ImageView)v.findViewById(R.id.button_g);
@@ -81,7 +88,9 @@ public class DrumTrainFragment extends Fragment {
         word = activity.words[activity.wordIndex];
         wordResource = word.toLowerCase().replaceAll("[^a-z]","");
 
-        image.setImageResource(imageRes.get(wordResource));
+        Log.d("DrumTrainFragment", wordResource);
+        Picasso.with(getActivity()).load(imageRes.get(wordResource)).resize(384, 288).into(image);
+//        image.setImageDrawable(getResources().getDrawable(imageRes.get(wordResource)));
 
         if (mode == StringMode.CHILD_WORD_TRAIN) {
             textViewInstruction.setText("Instruction to Child");
@@ -114,8 +123,10 @@ public class DrumTrainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mode == StringMode.PARENT_WORD_TRAIN) {
+//                    image.setVisibility(View.GONE);
                     callback.switchToDrumTrainModeParam(StringMode.CHILD_WORD_TRAIN);
                 } else if (mode == StringMode.CHILD_WORD_TRAIN) {
+//                    image.setVisibility(View.GONE);
                     callback.switchToRecorder();
                 }
             }
@@ -124,12 +135,9 @@ public class DrumTrainFragment extends Fragment {
         return v;
     }
 
-
     public interface OnFinishDrumModeListener {
         void switchToDrumTrainModeParam(StringMode mode);
         void switchToRecorder();
     }
-
-
 
 }

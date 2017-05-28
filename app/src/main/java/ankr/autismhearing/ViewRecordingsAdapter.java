@@ -1,5 +1,6 @@
 package ankr.autismhearing;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
@@ -11,17 +12,21 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class ViewRecordingsAdapter extends RecyclerView.Adapter<ViewRecordingsAdapter.ViewHolder> {
 
-    private File[] files;
+    private final List<File> files;
     private File basePath;
+    private final MainActivity activity;
 
-    public ViewRecordingsAdapter(File[] files) {
-        Log.d("file",String.valueOf(files.length));
+    public ViewRecordingsAdapter(Context context, List<File> files) {
         this.files = files;
-        basePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator + "ahrecordings");
+        activity = (MainActivity)context;
+        basePath = activity.baseFolder;
     }
 
     @Override
@@ -33,20 +38,28 @@ public class ViewRecordingsAdapter extends RecyclerView.Adapter<ViewRecordingsAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(files[position].getName() );
+        Date date = new Date(files.get(position).lastModified());
+        Format formatter = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+
+        String display = " @ " + formatter.format(date);
+        holder.textView.setText(files.get(position).getName());
+        holder.textViewDate.setText(display);
     }
 
     @Override
     public int getItemCount() {
-        return files.length;
+        return files.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
+        public TextView textViewDate;
         public ViewHolder(View itemView) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.textview_recording_item);
+            textViewDate = (TextView)itemView.findViewById(R.id.textview_recording_item_date);
+
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override

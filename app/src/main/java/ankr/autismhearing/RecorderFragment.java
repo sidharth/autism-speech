@@ -12,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.github.piasy.rxandroidaudio.AudioRecorder;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.HashMap;
 
 import ankr.autismhearing.visualizer.RecordingSampler;
 import ankr.autismhearing.visualizer.VisualizerView;
@@ -33,7 +36,8 @@ public class RecorderFragment extends Fragment {
 //    Button recordButton;
 
     Button recordChild, recordParent;
-    String name, gender, dob, language, word;
+    ImageView image;
+    String name, gender, dob, language, word, wordResource;
     String childPath, parentPath;
     String childFileName, parentFileName;
 
@@ -52,10 +56,38 @@ public class RecorderFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recorder, container, false);
         final MainActivity activity = (MainActivity)getActivity();
+        activity.releaseMediaPlayers();
+
+        if (activity.drumPlayer[0] == null) {
+            Log.d("RecorderFragment", "null");
+        } else {
+            Log.d("RecorderFragment", "notnull");
+        }
+
         callback = activity;
 
         recordParent = (Button)v.findViewById(R.id.button_record_parent);
         recordChild = (Button)v.findViewById(R.id.button_record_child);
+        image = (ImageView)v.findViewById(R.id.imageview_word_record);
+
+
+        HashMap<String, Integer> imageRes = new HashMap<>();
+        imageRes.put("balloon", R.drawable.balloon);
+        imageRes.put("chair", R.drawable.chair);
+        imageRes.put("didi", R.drawable.didi);
+        imageRes.put("chocolate", R.drawable.chocolate);
+        imageRes.put("elephant", R.drawable.elephant);
+        imageRes.put("finish", R.drawable.finish);
+        imageRes.put("flower", R.drawable.flower);
+        imageRes.put("give", R.drawable.give);
+        imageRes.put("hello", R.drawable.hello);
+        imageRes.put("hugpapa", R.drawable.hugpapa);
+        imageRes.put("kissmumma", R.drawable.kissmumma);
+        imageRes.put("lunch", R.drawable.lunch);
+        imageRes.put("mouth", R.drawable.mouth);
+        imageRes.put("sun", R.drawable.sun);
+        imageRes.put("train", R.drawable.train);
+        imageRes.put("tummy", R.drawable.tummy);
 
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         name = sharedPref.getString("name","n");
@@ -64,14 +96,21 @@ public class RecorderFragment extends Fragment {
         language = sharedPref.getString("language","lang");
         word = activity.words[activity.wordIndex];
 
-        Log.d("folderyay", activity.baseFolder.toString());
+        wordResource = word.toLowerCase().replaceAll("[^a-z]","");
+        Picasso.with(getActivity()).load(imageRes.get(wordResource)).resize(384, 288).into(image);
+        Log.d("RecorderFragment", wordResource);
+
+
+//        Log.d("folderyay", activity.baseFolder.toString());
+
+        String currTime = String.valueOf(System.currentTimeMillis());
 
         childFileName = name + "_" +
                 gender + "_"+
                 dob + "_" +
                 word;
-
-        parentFileName = childFileName + "_parent";
+        parentFileName = childFileName + "_parent_" + currTime;
+        childFileName = childFileName + currTime;
 
         childPath = activity.baseFolder.toString() + File.separator +
                 childFileName;

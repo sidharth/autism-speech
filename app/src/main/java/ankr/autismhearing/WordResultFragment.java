@@ -30,12 +30,17 @@ public class WordResultFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_word_result, container, false);
         final MainActivity activity = (MainActivity)getActivity();
+
+//        activity.firework.start();
+
+
         callback = (OnNextWordListener)activity;
+
         textViewPercent = (TextView)v.findViewById(R.id.textview_percent_done);
         buttonNextWord = (Button)v.findViewById(R.id.button_next_word);
         textViewTitle = (TextView)v.findViewById(R.id.textview_result_title);
         textViewSubtitle = (TextView)v.findViewById(R.id.textview_result_subtitle);
-
+//
         percent = String.format("%.2f",((float)(activity.wordIndex+1) * 100) / activity.words.length);
         activity.wordIndex++;
         activity.wordIndex %= 15;

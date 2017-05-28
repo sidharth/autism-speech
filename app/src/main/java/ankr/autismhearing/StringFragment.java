@@ -23,17 +23,16 @@ import org.w3c.dom.Text;
  * A simple {@link Fragment} subclass.
  */
 public class StringFragment extends Fragment {
+    Button buttonContinue;
 
-    ImageView buttonC,
-            buttonE,
-            buttonG;
-    Button buttonRecNext,
-            buttonViewRecordings,
-            buttonContinue;
+    ImageView strings[];
+    ImageView instructionHand;
+
+    boolean touched[];
 
     Animation blink;
 
-    ViewGroup container, stringC, stringE, stringG;
+    ViewGroup container;
     View v;
 
     TextView textView, textView2;
@@ -44,7 +43,7 @@ public class StringFragment extends Fragment {
     OnModeChangeListener callback;
 
     StringMode mode;
-    int stage;
+    int syllables;
 
     public StringFragment() {
         // Required empty public constructor
@@ -52,7 +51,6 @@ public class StringFragment extends Fragment {
 
     public StringFragment(StringMode mode) {
         this.mode = mode;
-        this.stage = stage;
     }
 
 
@@ -64,10 +62,20 @@ public class StringFragment extends Fragment {
 
         final MainActivity activity = (MainActivity)getActivity();
 
+        strings = new ImageView[6];
+        touched = new boolean[6];
+        strings[0] = (ImageView)v.findViewById(R.id.button_c);
+        strings[1] = (ImageView)v.findViewById(R.id.button_d);
+        strings[2] = (ImageView)v.findViewById(R.id.button_f);
+        strings[3] = (ImageView)v.findViewById(R.id.button_g);
+//        strings[4] = (ImageView)v.findViewById(R.id.button_a);
+//        strings[5] = (ImageView)v.findViewById(R.id.button_b);
 
-        buttonC = (ImageView) v.findViewById(R.id.button_c);
-        buttonE = (ImageView) v.findViewById(R.id.button_e);
-        buttonG = (ImageView) v.findViewById(R.id.button_g);
+        instructionHand = (ImageView)v.findViewById(R.id.instruction_hand);
+
+
+        syllables = activity.syllables[activity.wordIndex];
+
         buttonContinue = (Button)v.findViewById(R.id.button_continue_first_stage);
 
         container = (LinearLayout)v.findViewById(R.id.container_viewgroup);
@@ -81,83 +89,68 @@ public class StringFragment extends Fragment {
         blink.setRepeatMode(Animation.REVERSE);
 
         if (mode == StringMode.PARENT_TOUCH_ALL) {
-            buttonC.startAnimation(blink);
-            buttonE.startAnimation(blink);
-            buttonG.startAnimation(blink);
+
+            for (int i=0; i<4; i++) {
+                strings[i].startAnimation(blink);
+            }
             textView.setText("Instruction To Parent");
             textView2.setText("Tap each of the strings below");
         } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
-            buttonC.startAnimation(blink);
-            deactivateButton(buttonE);
-            deactivateButton(buttonG);
+            instructionHand.setImageResource(R.drawable.instruction_hand_string);
+            strings[0].startAnimation(blink);
+            for (int i=1; i<4; i++) {
+                deactivateButton(strings[i]);
+            }
+            for (int i=syllables; i<4; i++) {
+                strings[i].setVisibility(View.INVISIBLE);
+            }
+            activateButton(strings[0]);
             textView.setText("Instruction To Parent");
             textView2.setText("Tap on the blinking string and hum the note");
         } else if (mode == StringMode.CHILD_TOUCH_ALL) {
-            buttonC.startAnimation(blink);
-            buttonE.startAnimation(blink);
-            buttonG.startAnimation(blink);
+            for (int i=0; i<4; i++) {
+                strings[i].startAnimation(blink);
+            }
             textView.setText("Instruction To Child");
             textView2.setText("Tap each of the strings below");
         } else if (mode == StringMode.CHILD_TOUCH_ORDERED) {
-            buttonC.startAnimation(blink);
-            deactivateButton(buttonE);
-            deactivateButton(buttonG);
+            instructionHand.setImageResource(R.drawable.instruction_hand_string);
+            strings[0].startAnimation(blink);
+            for (int i=1; i<4; i++) {
+                deactivateButton(strings[i]);
+            }
+            for (int i=syllables; i<4; i++) {
+                strings[i].setVisibility(View.INVISIBLE);
+            }
+            activateButton(strings[0]);
             textView.setText("Instruction To Child");
             textView2.setText("Tap on the blinking string and hum the note");
         }
 
         callback = (OnModeChangeListener) getActivity();
 
-        buttonC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.mp[0].start();
-                buttonC.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
-                    bc = true;
-                    allStringsPressed();
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
-                    deactivateButton(buttonC);
-                    deactivateButton(buttonG);
-                    activateButton(buttonE);
-                    buttonE.startAnimation(blink);
-                }
-            }
-        });
+        for (int i=0; i<4; i++) {
+            strings[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = view.getContentDescription().charAt(0) - '0';
+                    activity.stringPlayer[index].start();
+                    view.clearAnimation();
+                    if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
+                        touched[index] = true;
+                        allStringsPressed();
+                    } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
+                        deactivateButton(strings[index]);
+                        activateButton(strings[(index+1)%syllables]);
+                        strings[(index+1)%syllables].startAnimation(blink);
+                        if (index == syllables-1) {
+                            activateButton(buttonContinue);
+                        }
+                    }
 
-        buttonE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.mp[1].start();
-                buttonE.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
-                    be = true;
-                    allStringsPressed();
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
-                    deactivateButton(buttonE);
-                    activateButton(buttonG);
-                    buttonG.startAnimation(blink);
                 }
-            }
-        });
-
-        buttonG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.mp[2].start();
-                buttonG.clearAnimation();
-                if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
-                    bg = true;
-                    allStringsPressed();
-                } else if (mode == StringMode.PARENT_TOUCH_ORDERED || mode == StringMode.CHILD_TOUCH_ORDERED) {
-                    activateButton(buttonC);
-                    buttonC.startAnimation(blink);
-                    deactivateButton(buttonE);
-                    deactivateButton(buttonG);
-                    activateButton(buttonContinue);
-                }
-            }
-        });
+            });
+        }
 
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,9 +178,12 @@ public class StringFragment extends Fragment {
     }
 
     void allStringsPressed() {
-        if (bc && be && bg) {
-            activateButton(buttonContinue);
+        for (int i=0; i<4; i++) {
+            if (!touched[i]) {
+                return;
+            }
         }
+        activateButton(buttonContinue);
     }
 
     void deactivateButton(ImageView b) {
