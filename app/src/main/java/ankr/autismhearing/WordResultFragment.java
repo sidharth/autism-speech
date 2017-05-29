@@ -32,6 +32,7 @@ public class WordResultFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
 
 //        activity.firework.start();
+        activity.poolPlay(activity.firework);
 
 
         callback = (OnNextWordListener)activity;

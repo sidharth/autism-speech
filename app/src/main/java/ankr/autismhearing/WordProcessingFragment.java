@@ -81,7 +81,8 @@ public class WordProcessingFragment extends Fragment {
                 //Do something after 100ms
                 dialog.dismiss();
                 view_container.setVisibility(View.VISIBLE);
-                activity.rain.start();
+//                activity.rain.start();
+                activity.poolPlay(activity.rain);
             }
         }, 5000);
 

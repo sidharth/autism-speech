@@ -97,7 +97,8 @@ public class DrumFragment extends Fragment {
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.drumPlayer[0].start();
+//                activity.drumPlayer[0].start();
+                activity.poolPlay(activity.drumPlayer[0]);
                 buttonC.clearAnimation();
                 if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     bc = true;
@@ -114,7 +115,8 @@ public class DrumFragment extends Fragment {
         buttonE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.drumPlayer[1].start();
+//                activity.drumPlayer[1].start();
+                activity.poolPlay(activity.drumPlayer[1]);
                 buttonE.clearAnimation();
                 if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     be = true;
@@ -130,7 +132,8 @@ public class DrumFragment extends Fragment {
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.drumPlayer[2].start();
+//                activity.drumPlayer[2].start();
+                activity.poolPlay(activity.drumPlayer[2]);
                 buttonG.clearAnimation();
                 if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                     bg = true;
@@ -166,7 +169,12 @@ public class DrumFragment extends Fragment {
 
     void allStringsPressed() {
         if (bc && be && bg) {
-            activateButton(buttonContinue);
+//            activateButton(buttonContinue);
+            if (mode == StringMode.PARENT_TOUCH_ALL) {
+                callback.switchToDrumParam(StringMode.CHILD_TOUCH_ALL);
+            } else if (mode == StringMode.CHILD_TOUCH_ALL) {
+                callback.switchToDrumWordTrainMode(StringMode.PARENT_WORD_TRAIN);
+            }
         }
     }
 

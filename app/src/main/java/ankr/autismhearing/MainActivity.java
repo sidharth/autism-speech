@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -58,12 +61,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private static final int REQUEST_CODE_RESOLUTION = 13;
 
     public static final String DRIVE_ROOT = "ahsounds";
+//
+//    public MediaPlayer[] drumPlayer = new MediaPlayer[3];
+//    public MediaPlayer[] stringPlayer = new MediaPlayer[6];
+//    public MediaPlayer firework = new MediaPlayer();
+//    public MediaPlayer rain = new MediaPlayer();
 
-    public MediaPlayer[] drumPlayer = new MediaPlayer[3];
-    public MediaPlayer[] stringPlayer = new MediaPlayer[6];
-    public MediaPlayer firework = new MediaPlayer();
-    public MediaPlayer rain = new MediaPlayer();
+    public int[] drumPlayer = new int[3];
+    public int[] stringPlayer = new int[6];
+    public int firework = 0;
+    public int rain = 0;
 
+    public SoundPool pool;
     public String[] words;
     public int wordIndex = 0;
     public int syllables[];
@@ -171,6 +180,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 // Oops! User has canceled the recording
             }
         }
+
+        else if (requestCode == REQUEST_CODE_RESOLUTION) {
+            Log.d("TAG","Request Code Resolution called");
+            if(resultCode == RESULT_OK) {
+                googleApiClient.connect();
+            } else {
+                Log.d("TAG","Request Code Resolution Failed");
+            }
+        }
+
+
     }
 
 
@@ -333,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Log.i("TAG", "GoogleApiClient connection failed: " + result.toString());
         if (!result.hasResolution()) {
             // show the localized error dialog.
+            Log.d("TAG","No resolution for google api sign in");
             GoogleApiAvailability.getInstance().getErrorDialog(this, result.getErrorCode(), 0).show();
             return;
         }
@@ -341,6 +362,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // authorization
         // dialog is displayed to the user.
         try {
+            Log.d("TAG","got here");
             result.startResolutionForResult(this, REQUEST_CODE_RESOLUTION);
         } catch (IntentSender.SendIntentException e) {
             Log.e("TAG", "Exception while starting resolution activity", e);
@@ -355,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             for (int i=0; i<buffer.getCount(); i++) {
                 if (buffer.get(i).getTitle().equalsIgnoreCase(DRIVE_ROOT)) {
                     driveRootFolderId = buffer.get(i).getDriveId();
+                    Log.d("drive debug",driveRootFolderId.toString());
                     exists = true;
                 }
             }
@@ -373,6 +396,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             return;
         }
     };
+
 
     @Override
     public void onConnected(Bundle connectionHint) {
@@ -550,34 +574,64 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     void releaseMediaPlayers() {
         for (int i=0; i<6; i++) {
-            stringPlayer[i].release();
+//            stringPlayer[i].release();
+            pool.unload(stringPlayer[i]);
         }
 
         for (int i=0; i<3; i++) {
-            drumPlayer[i].release();
+//            drumPlayer[i].release();
+            pool.unload(drumPlayer[i]);
         }
 
-        rain.release();
-        firework.release();
+        pool.unload(rain);
+        pool.unload(firework);
+//        rain.release();
+//        firework.release();
 
         isPlayerSet = false;
     }
 
     void createMediaPlayers() {
-        drumPlayer[0] = MediaPlayer.create(this, R.raw.d1);
-        drumPlayer[1] = MediaPlayer.create(this, R.raw.d2);
-        drumPlayer[2] = MediaPlayer.create(this, R.raw.d3);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            pool = (new SoundPool.Builder()).setMaxStreams(20).build();
+        } else {
+            pool = new SoundPool(20, AudioManager.STREAM_MUSIC,0);
+        }
 
-        stringPlayer[0] = MediaPlayer.create(this, R.raw.t0);
-        stringPlayer[1] = MediaPlayer.create(this, R.raw.t1);
-        stringPlayer[2] = MediaPlayer.create(this, R.raw.t2);
-        stringPlayer[3] = MediaPlayer.create(this, R.raw.t3);
-        stringPlayer[4] = MediaPlayer.create(this, R.raw.a);
-        stringPlayer[5] = MediaPlayer.create(this, R.raw.b);
+        drumPlayer[0] = pool.load(this, R.raw.d1,0);
+        drumPlayer[1] = pool.load(this, R.raw.d2,0);
+        drumPlayer[2] = pool.load(this, R.raw.d3,0);
 
-        rain = MediaPlayer.create(this, R.raw.rain);
-        firework = MediaPlayer.create(this, R.raw.firework);
+        stringPlayer[0] = pool.load(this, R.raw.t0,0);
+        stringPlayer[1] = pool.load(this, R.raw.t1,0);
+        stringPlayer[2] = pool.load(this, R.raw.t2,0);
+        stringPlayer[3] = pool.load(this, R.raw.t3,0);
+        stringPlayer[4] = pool.load(this, R.raw.a,0);
+        stringPlayer[5] = pool.load(this, R.raw.b,0);
+
+        rain = pool.load(this, R.raw.rain,0);
+        firework = pool.load(this, R.raw.firework,0);
+
+
+
+//        drumPlayer[0] = MediaPlayer.create(this, R.raw.d1);
+//        drumPlayer[1] = MediaPlayer.create(this, R.raw.d2);
+//        drumPlayer[2] = MediaPlayer.create(this, R.raw.d3);
+//
+//        stringPlayer[0] = MediaPlayer.create(this, R.raw.t0);
+//        stringPlayer[1] = MediaPlayer.create(this, R.raw.t1);
+//        stringPlayer[2] = MediaPlayer.create(this, R.raw.t2);
+//        stringPlayer[3] = MediaPlayer.create(this, R.raw.t3);
+//        stringPlayer[4] = MediaPlayer.create(this, R.raw.a);
+//        stringPlayer[5] = MediaPlayer.create(this, R.raw.b);
+//
+//        rain = MediaPlayer.create(this, R.raw.rain);
+//        firework = MediaPlayer.create(this, R.raw.firework);
         isPlayerSet = true;
+    }
+
+    public void poolPlay(int id) {
+        pool.play(id,1,1,0,0,1);
     }
 }
 

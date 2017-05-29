@@ -128,7 +128,8 @@ public class WordTrainFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     int index = view.getContentDescription().charAt(0)-'0';
-                    activity.stringPlayer[index].start();
+//                    activity.stringPlayer[index].start();
+                    activity.poolPlay(activity.stringPlayer[index]);
                 }
             });
         }

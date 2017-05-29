@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.piasy.rxandroidaudio.AudioRecorder;
 import com.squareup.picasso.Picasso;
@@ -58,11 +59,11 @@ public class RecorderFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
         activity.releaseMediaPlayers();
 
-        if (activity.drumPlayer[0] == null) {
-            Log.d("RecorderFragment", "null");
-        } else {
-            Log.d("RecorderFragment", "notnull");
-        }
+//        if (activity.drumPlayer[0] == null) {
+//            Log.d("RecorderFragment", "null");
+//        } else {
+//            Log.d("RecorderFragment", "notnull");
+//        }
 
         callback = activity;
 
@@ -146,6 +147,8 @@ public class RecorderFragment extends Fragment {
             public void onClick(View v) {
                 int color = getResources().getColor(R.color.colorPrimaryDark);
                 int requestCode = 0;
+                Toast.makeText(activity, "Press Tick Button to Save Recording", Toast.LENGTH_LONG)
+                        .show();
                 AndroidAudioRecorder.with(getActivity())
                         // Required
                         .setFilePath(childPath)

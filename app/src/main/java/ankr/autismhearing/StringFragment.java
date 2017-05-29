@@ -134,7 +134,8 @@ public class StringFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     int index = view.getContentDescription().charAt(0) - '0';
-                    activity.stringPlayer[index].start();
+//                    activity.stringPlayer[index].start();
+                    activity.poolPlay(activity.stringPlayer[index]);
                     view.clearAnimation();
                     if (mode == StringMode.PARENT_TOUCH_ALL || mode == StringMode.CHILD_TOUCH_ALL) {
                         touched[index] = true;
@@ -145,6 +146,11 @@ public class StringFragment extends Fragment {
                         strings[(index+1)%syllables].startAnimation(blink);
                         if (index == syllables-1) {
                             activateButton(buttonContinue);
+//                            if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+//                                callback.switchToStringParam(StringMode.CHILD_TOUCH_ORDERED);
+//                            } else if (mode == StringMode.CHILD_TOUCH_ORDERED) {
+//                                callback.switchToWordTrainMode(StringMode.PARENT_WORD_TRAIN);
+//                            }
                         }
                     }
 
@@ -183,7 +189,18 @@ public class StringFragment extends Fragment {
                 return;
             }
         }
-        activateButton(buttonContinue);
+
+        if (mode == StringMode.PARENT_TOUCH_ALL) {
+            callback.switchToStringParam(StringMode.CHILD_TOUCH_ALL);
+        } else if (mode == StringMode.CHILD_TOUCH_ALL) {
+            callback.switchToStringParam(StringMode.PARENT_TOUCH_ORDERED);
+        }
+        else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
+            callback.switchToStringParam(StringMode.CHILD_TOUCH_ORDERED);
+        } else if (mode == StringMode.CHILD_TOUCH_ORDERED) {
+            callback.switchToWordTrainMode(StringMode.PARENT_WORD_TRAIN);
+        }
+//        activateButton(buttonContinue);
     }
 
     void deactivateButton(ImageView b) {

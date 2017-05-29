@@ -101,21 +101,24 @@ public class DrumTrainFragment extends Fragment {
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.drumPlayer[0].start();
+//                activity.drumPlayer[0].start();
+                activity.poolPlay(activity.drumPlayer[0]);
             }
         });
 
         buttonE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.drumPlayer[1].start();
+//                activity.drumPlayer[1].start();
+                activity.poolPlay(activity.drumPlayer[1]);
             }
         });
 
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.drumPlayer[2].start();
+//                activity.drumPlayer[2].start();
+                activity.poolPlay(activity.drumPlayer[2]);
             }
         });
 
