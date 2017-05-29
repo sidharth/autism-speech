@@ -7,6 +7,7 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -191,12 +192,22 @@ public class RecorderFragment extends Fragment {
             Log.d("filename", parentFileName);
             activity.uploadChildFilesToSubjectFolder(childFileName);
             activity.uploadParentFilesToSubjectFolder(parentFileName);
-            callback.switchToWordResultMode();
+//            callback.switchToWordResultMode();
+            switchToParentRatingMode();
         }
     }
 
     public interface OnRecordingFinishedListener {
         void switchToWordResultMode();
+    }
+
+    private void switchToParentRatingMode() {
+        ParentRatingFragment parentRatingFragment = new ParentRatingFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+        fragmentTransaction.replace(R.id.container_fragment, parentRatingFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 }

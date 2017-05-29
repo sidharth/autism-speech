@@ -134,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         NameFragment nameFragment = new NameFragment(); // use this
 //        StringFragment stringFragment = new StringFragment();
 //        WordProcessingFragment wordProcessingFragment = new WordProcessingFragment();
-        DashboardFragment dashboardFragment = new DashboardFragment();
+        ParentRatingFragment parentRatingFragment = new ParentRatingFragment();
+//        DashboardFragment dashboardFragment = new DashboardFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container_fragment, nameFragment)
@@ -301,11 +302,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void switchToNextWord() {
         FragmentManager fm = getSupportFragmentManager();
-        int count = fm.getBackStackEntryCount()-1;
+        int count = fm.getBackStackEntryCount();
         Log.d("sid_stacks", String.valueOf(count));
-        for(int i = 0; i < count; ++i) {
+        for(int i = 0; i < count-1; ++i) {
             fm.popBackStackImmediate();
         }
+        Log.d("sid_stacks", "remaining: " + String.valueOf(fm.getBackStackEntryCount()));
     }
 
     @Override
@@ -629,6 +631,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        firework = MediaPlayer.create(this, R.raw.firework);
         isPlayerSet = true;
     }
+
+
 
     public void poolPlay(int id) {
         pool.play(id,1,1,0,0,1);

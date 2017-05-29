@@ -66,25 +66,28 @@ public class WordProcessingFragment extends Fragment {
             }
         });
 
-        final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title("Processing audio")
-                .content("Please wait")
-                .progress(true, 0)
-                .widgetColorRes(R.color.wallet_holo_blue_light)
-                .cancelable(false)
-                .show();
+//        final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
+//                .title("Processing audio")
+//                .content("Please wait")
+//                .progress(true, 0)
+//                .widgetColorRes(R.color.wallet_holo_blue_light)
+//                .cancelable(false)
+//                .show();
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 100ms
-                dialog.dismiss();
-                view_container.setVisibility(View.VISIBLE);
-//                activity.rain.start();
-                activity.poolPlay(activity.rain);
-            }
-        }, 5000);
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //Do something after 100ms
+//                dialog.dismiss();
+//                view_container.setVisibility(View.VISIBLE);
+////                activity.rain.start();
+//                activity.poolPlay(activity.rain);
+//            }
+//        }, 5000);
+
+        view_container.setVisibility(View.VISIBLE);
+        activity.poolPlay(activity.rain);
 
         return v;
     }

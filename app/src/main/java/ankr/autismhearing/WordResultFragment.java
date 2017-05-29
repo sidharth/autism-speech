@@ -3,6 +3,7 @@ package ankr.autismhearing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class WordResultFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
 
 //        activity.firework.start();
+        Log.d("sid_stack", "playing sound");
+        Log.d("sid_stack", "size=" + String.valueOf(getActivity().getSupportFragmentManager().getBackStackEntryCount()));
         activity.poolPlay(activity.firework);
 
 
