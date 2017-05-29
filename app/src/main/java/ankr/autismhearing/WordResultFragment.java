@@ -35,7 +35,7 @@ public class WordResultFragment extends Fragment {
 //        activity.firework.start();
         Log.d("sid_stack", "playing sound");
         Log.d("sid_stack", "size=" + String.valueOf(getActivity().getSupportFragmentManager().getBackStackEntryCount()));
-        activity.poolPlay(activity.firework);
+//        activity.poolPlay(activity.firework);
 
 
         callback = (OnNextWordListener)activity;
@@ -70,6 +70,13 @@ public class WordResultFragment extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.poolPlay(activity.firework);
     }
 
     public interface OnNextWordListener {

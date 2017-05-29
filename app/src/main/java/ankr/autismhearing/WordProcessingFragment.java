@@ -3,10 +3,12 @@ package ankr.autismhearing;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,9 +89,27 @@ public class WordProcessingFragment extends Fragment {
 //        }, 5000);
 
         view_container.setVisibility(View.VISIBLE);
-        activity.poolPlay(activity.rain);
+//        activity.poolPlay(activity.rain);
 
         return v;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        final MainActivity activity = (MainActivity) getActivity();
+        Log.d("DEBUG","playing rain");
+//        activity.poolPlay(activity.rain);
+        activity.rain = activity.pool.load(activity,R.raw.rain,0);
+        activity.pool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if(sampleId == activity.rain) {
+                    soundPool.play(sampleId, 1, 1, 0, 0, 1);
+                    soundPool.unload(sampleId);
+                }
+            }
+        });
     }
 
     private void saveToDb() {

@@ -611,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         stringPlayer[4] = pool.load(this, R.raw.a,0);
         stringPlayer[5] = pool.load(this, R.raw.b,0);
 
-        rain = pool.load(this, R.raw.rain,0);
+//        rain = pool.load(this, R.raw.rain,0);
         firework = pool.load(this, R.raw.firework,0);
 
 
