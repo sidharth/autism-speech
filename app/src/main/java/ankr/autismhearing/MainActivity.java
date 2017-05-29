@@ -304,10 +304,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         FragmentManager fm = getSupportFragmentManager();
         int count = fm.getBackStackEntryCount();
         Log.d("sid_stacks", String.valueOf(count));
-        for(int i = 0; i < count-1; ++i) {
-            fm.popBackStackImmediate();
-        }
+//        for(int i = 0; i < count; ++i) {
+//            fm.popBackStackImmediate();
+//        }
+        fm.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         Log.d("sid_stacks", "remaining: " + String.valueOf(fm.getBackStackEntryCount()));
+        fm.beginTransaction().add(R.id.container_fragment,new DashboardFragment())
+                .addToBackStack(null)
+                .commit();
+        releaseMediaPlayers();
+        createMediaPlayers();
+
     }
 
     @Override

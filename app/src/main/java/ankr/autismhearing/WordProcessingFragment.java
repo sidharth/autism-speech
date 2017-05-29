@@ -57,6 +57,7 @@ public class WordProcessingFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 fragmentTransaction.replace(R.id.container_fragment, resultFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -110,6 +111,7 @@ public class WordProcessingFragment extends Fragment {
                 }
             }
         });
+//        activity.poolPlay(activity.rain);
     }
 
     private void saveToDb() {

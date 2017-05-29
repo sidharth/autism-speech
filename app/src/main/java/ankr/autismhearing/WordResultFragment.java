@@ -76,7 +76,9 @@ public class WordResultFragment extends Fragment {
     public void onResume(){
         super.onResume();
         MainActivity activity = (MainActivity) getActivity();
+        Log.d("BOI","BOut to play that firework");
         activity.poolPlay(activity.firework);
+        Log.d("BOI","He did it");
     }
 
     public interface OnNextWordListener {

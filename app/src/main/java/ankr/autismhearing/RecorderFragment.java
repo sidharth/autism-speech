@@ -58,7 +58,7 @@ public class RecorderFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recorder, container, false);
         final MainActivity activity = (MainActivity)getActivity();
-        activity.releaseMediaPlayers();
+//        activity.releaseMediaPlayers();
 
 //        if (activity.drumPlayer[0] == null) {
 //            Log.d("RecorderFragment", "null");
