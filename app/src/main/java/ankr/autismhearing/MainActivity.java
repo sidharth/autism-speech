@@ -645,5 +645,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void poolPlay(int id) {
         pool.play(id,1,1,0,0,1);
     }
+
+    public void onClickTryAgain() {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStackImmediate();
+        fm.popBackStackImmediate();
+//        onBackPressed();
+//        onBackPressed();
+    }
 }
 

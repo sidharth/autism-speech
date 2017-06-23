@@ -48,7 +48,7 @@ public class WordProcessingFragment extends Fragment {
         buttonRetry = (Button)v.findViewById(R.id.button_retry);
 
         word = activity.words[activity.wordIndex];
-        saveToDb();
+//        saveToDb();
 
         textViewSkip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class WordProcessingFragment extends Fragment {
         buttonRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+                activity.onClickTryAgain();
             }
         });
 
@@ -114,13 +114,13 @@ public class WordProcessingFragment extends Fragment {
 //        activity.poolPlay(activity.rain);
     }
 
-    private void saveToDb() {
-        SQLiteDatabase database = new WordDbHelper(getContext()).getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(WordContract.WordEntry.COLUMN_WORD, word);
-        values.put(WordContract.WordEntry.COLUMN_COUNT, 1);
-        long row = database.insert(WordContract.WordEntry.TABLE_NAME, null, values);
-        Toast.makeText(getContext(), "Added to database"+ String.valueOf(row), Toast.LENGTH_SHORT).show();
-    }
+//    private void saveToDb() {
+//        SQLiteDatabase database = new WordDbHelper(getContext()).getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(WordContract.WordEntry.COLUMN_WORD, word);
+//        values.put(WordContract.WordEntry.COLUMN_COUNT, 1);
+//        long row = database.insert(WordContract.WordEntry.TABLE_NAME, null, values);
+//        Toast.makeText(getContext(), "Added to database"+ String.valueOf(row), Toast.LENGTH_SHORT).show();
+//    }
 
 }

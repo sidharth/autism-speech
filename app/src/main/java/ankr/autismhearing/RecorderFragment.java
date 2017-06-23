@@ -123,6 +123,8 @@ public class RecorderFragment extends Fragment {
             public void onClick(View v) {
                 int color = getResources().getColor(R.color.colorPrimary);
                 int requestCode = 0;
+                Toast.makeText(activity, "Press Tick Button to Save Recording", Toast.LENGTH_LONG)
+                        .show();
                 AndroidAudioRecorder.with(getActivity())
                         // Required
                         .setFilePath(parentPath)

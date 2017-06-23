@@ -3,6 +3,7 @@ package ankr.autismhearing;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -101,6 +102,9 @@ public class NameFragment extends Fragment {
                                 .getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
+
+                    createNewDbTable();
+
 //                    callback.switchToStringMode();
                     switchToDashboardMode();
                 }
@@ -139,12 +143,24 @@ public class NameFragment extends Fragment {
                             .getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+
+
 //                callback.switchToStringMode();
                 switchToDashboardMode();
             }
         });
         return v;
     }
+
+    private void createNewDbTable() {
+        try {
+            SQLiteDatabase database = new WordDbHelper(getContext()).getWritableDatabase();
+            database.delete(WordContract.WordEntry.TABLE_NAME, null, null);
+        } catch (Exception e) {
+            Log.d("sid", "wasn't able to create new table");
+        }
+    }
+
 
 
     public interface OnNameSubmitListener {
