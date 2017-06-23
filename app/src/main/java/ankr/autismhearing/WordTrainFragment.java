@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -99,7 +101,7 @@ public class WordTrainFragment extends Fragment {
         word = activity.words[activity.wordIndex];
         syllables = activity.syllables[activity.wordIndex];
         wordResource = word.toLowerCase().replaceAll("[^a-z]","");
-
+        final Animation vibrate_animation = AnimationUtils.loadAnimation(getActivity(),R.anim.vibrate);
         Log.d(TAG, wordResource);
 
         Picasso.with(getActivity())
@@ -129,7 +131,10 @@ public class WordTrainFragment extends Fragment {
                 public void onClick(View view) {
                     int index = view.getContentDescription().charAt(0)-'0';
 //                    activity.stringPlayer[index].start();
+                    view.clearAnimation();
+                    view.startAnimation(vibrate_animation);
                     activity.poolPlay(activity.stringPlayer[index]);
+
                 }
             });
         }

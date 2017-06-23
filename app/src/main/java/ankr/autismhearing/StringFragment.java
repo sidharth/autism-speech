@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -88,6 +89,8 @@ public class StringFragment extends Fragment {
         blink.setRepeatCount(Animation.INFINITE);
         blink.setRepeatMode(Animation.REVERSE);
 
+        final Animation vibrate_animation = AnimationUtils.loadAnimation(getActivity(),R.anim.vibrate);
+
         if (mode == StringMode.PARENT_TOUCH_ALL) {
 
             for (int i=0; i<4; i++) {
@@ -153,6 +156,7 @@ public class StringFragment extends Fragment {
 //                            }
                         }
                     }
+                    view.startAnimation(vibrate_animation);
 
                 }
             });
