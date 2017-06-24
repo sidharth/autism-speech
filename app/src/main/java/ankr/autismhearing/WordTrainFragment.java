@@ -106,14 +106,14 @@ public class WordTrainFragment extends Fragment {
 
         Picasso.with(getActivity())
                 .load(imageRes.get(wordResource))
-                .resize(500, 375)
+                .resize(600, 450)
                 .centerInside()
                 .into(image);
 //        image.setImageDrawable(getResources().getDrawable(imageRes.get(wordResource)));
 
         Picasso.with(getActivity())
                 .load(R.drawable.instruction_hand_string)
-                .resize(150, 150)
+                .resize(200, 200)
                 .centerInside()
                 .into(instructionImage);
 

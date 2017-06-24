@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 
@@ -99,7 +101,12 @@ public class StringFragment extends Fragment {
             textView.setText("Instruction To Parent");
             textView2.setText("Tap each of the strings below");
         } else if (mode == StringMode.PARENT_TOUCH_ORDERED) {
-            instructionHand.setImageResource(R.drawable.instruction_hand_string);
+//            instructionHand.setImageResource(R.drawable.instruction_hand_string);
+            Picasso.with(getActivity())
+                    .load(R.drawable.instruction_hand_string)
+                    .resize(600, 450)
+                    .centerInside()
+                    .into(instructionHand);
             strings[0].startAnimation(blink);
             for (int i=1; i<4; i++) {
                 deactivateButton(strings[i]);
@@ -117,7 +124,12 @@ public class StringFragment extends Fragment {
             textView.setText("Instruction To Child");
             textView2.setText("Tap each of the strings below");
         } else if (mode == StringMode.CHILD_TOUCH_ORDERED) {
-            instructionHand.setImageResource(R.drawable.instruction_hand_string);
+//            instructionHand.setImageResource(R.drawable.instruction_hand_string);
+            Picasso.with(getActivity())
+                    .load(R.drawable.instruction_hand_string)
+                    .resize(600, 450)
+                    .centerInside()
+                    .into(instructionHand);
             strings[0].startAnimation(blink);
             for (int i=1; i<4; i++) {
                 deactivateButton(strings[i]);

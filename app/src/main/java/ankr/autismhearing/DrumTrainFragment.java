@@ -29,13 +29,18 @@ import cafe.adriel.androidaudiorecorder.model.AudioSource;
 public class DrumTrainFragment extends Fragment {
     StringMode mode;
     ImageView image;
-    ImageView buttonC, buttonE, buttonG;
+    ImageView drums[] = new ImageView[3];
+    ImageView instructionImage;
     Button nextStageButton;
     TextView textViewWord, textViewInstruction;
 
     String wordResource, word;
 
     OnFinishDrumModeListener callback;
+
+    int syllables = 1;
+    int drumIndex = 0;
+    // helps in the onclick listener
 
     public DrumTrainFragment() {
         // Required empty public constructor
@@ -54,6 +59,8 @@ public class DrumTrainFragment extends Fragment {
 
         final MainActivity activity = (MainActivity)getActivity();
         callback = (OnFinishDrumModeListener)activity;
+
+        instructionImage = (ImageView)v.findViewById(R.id.instruction_hand_drum);
 
         if (!activity.isPlayerSet) {
             activity.createMediaPlayers();
@@ -78,19 +85,26 @@ public class DrumTrainFragment extends Fragment {
         imageRes.put("tummy", R.drawable.tummy);
 
         image = (ImageView)v.findViewById(R.id.imageview_word_train_drum);
-        buttonC = (ImageView)v.findViewById(R.id.button_c);
-        buttonE = (ImageView)v.findViewById(R.id.button_e);
-        buttonG = (ImageView)v.findViewById(R.id.button_g);
+        drums[0] = (ImageView)v.findViewById(R.id.button_c);
+        drums[1] = (ImageView)v.findViewById(R.id.button_e);
+        drums[2] = (ImageView)v.findViewById(R.id.button_g);
         nextStageButton = (Button)v.findViewById(R.id.button_next_stage);
         textViewWord = (TextView)v.findViewById(R.id.textview_word);
         textViewInstruction = (TextView)v.findViewById(R.id.textview_instruction_title);
 
         word = activity.words[activity.wordIndex];
+        syllables = activity.syllables[activity.wordIndex];
         wordResource = word.toLowerCase().replaceAll("[^a-z]","");
 
         Log.d("DrumTrainFragment", wordResource);
-        Picasso.with(getActivity()).load(imageRes.get(wordResource)).resize(384, 288).into(image);
+        Picasso.with(getActivity()).load(imageRes.get(wordResource)).resize(600, 450).into(image);
 //        image.setImageDrawable(getResources().getDrawable(imageRes.get(wordResource)));
+
+        Picasso.with(getActivity())
+                .load(R.drawable.instruction_hand_drum)
+                .resize(200, 200)
+                .centerInside()
+                .into(instructionImage);
 
         if (mode == StringMode.CHILD_WORD_TRAIN) {
             textViewInstruction.setText("Instruction to Child");
@@ -98,29 +112,18 @@ public class DrumTrainFragment extends Fragment {
 
         textViewWord.setText(word);
 
-        buttonC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                activity.drumPlayer[0].start();
-                activity.poolPlay(activity.drumPlayer[0]);
-            }
-        });
+        for (int i=syllables; i<3; i++) {
+            drums[i].setVisibility(View.GONE);
+        }
 
-        buttonE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                activity.drumPlayer[1].start();
-                activity.poolPlay(activity.drumPlayer[1]);
-            }
-        });
-
-        buttonG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                activity.drumPlayer[2].start();
-                activity.poolPlay(activity.drumPlayer[2]);
-            }
-        });
+        for (drumIndex=0; drumIndex<syllables; drumIndex++) {
+            drums[drumIndex].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.poolPlay(activity.drumPlayer[drumIndex]);
+                }
+            });
+        }
 
         nextStageButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -99,7 +99,7 @@ public class RecorderFragment extends Fragment {
         word = activity.words[activity.wordIndex];
 
         wordResource = word.toLowerCase().replaceAll("[^a-z]","");
-        Picasso.with(getActivity()).load(imageRes.get(wordResource)).resize(384, 288).into(image);
+        Picasso.with(getActivity()).load(imageRes.get(wordResource)).resize(600, 450).into(image);
         Log.d("RecorderFragment", wordResource);
 
 

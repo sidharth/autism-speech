@@ -46,10 +46,10 @@ public class IntermediateFragment extends Fragment {
 
         switch (stage) {
             case 1:
-                subtitle.setText("Play the guitar");
+                subtitle.setText("Let's play the guitar and sing!");
                 break;
             case 2:
-                subtitle.setText("Play the drums");
+                subtitle.setText("Now, let's play the drums!");
                 break;
             case 3:
                 subtitle.setText("Now let's record!");
