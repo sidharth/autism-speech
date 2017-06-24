@@ -174,6 +174,10 @@ public class RecorderFragment extends Fragment {
         return v;
     }
 
+    public void setUpMediaRecorder() {
+
+    }
+
     public void finishCurrentRecording() {
         final MainActivity activity = (MainActivity)getActivity();
         Log.d("lastpressed", "something");

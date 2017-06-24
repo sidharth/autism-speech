@@ -13,75 +13,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <include layout="@layout/record_layout_parent"
+        />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PARENT"
-            android:textSize="35sp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-
-        <Button
-            android:id="@+id/button_record_parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RECORD"
-            android:textSize="20sp"
-            android:drawablePadding="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            app:backgroundTint="@android:color/white"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginTop="40dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:background="@color/colorPrimaryDark">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CHILD"
-            android:textColor="@android:color/white"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-
-        <Button
-            android:id="@+id/button_record_child"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RECORD"
-            android:textSize="20sp"
-            android:drawablePadding="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            app:backgroundTint="@android:color/white"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginTop="40dp"/>
-
-    </LinearLayout>
-
+    <include layout="@layout/record_layout_child"/>
 
 
 </LinearLayout>
