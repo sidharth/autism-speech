@@ -116,7 +116,7 @@ public class StringFragment extends Fragment {
             }
             activateButton(strings[0]);
             textView.setText("Instruction To Parent");
-            textView2.setText("Tap on the blinking string and hum the note");
+            textView2.setText("Play the blinking string, then hum the note");
         } else if (mode == StringMode.CHILD_TOUCH_ALL) {
             for (int i=0; i<4; i++) {
                 strings[i].startAnimation(blink);
@@ -139,7 +139,7 @@ public class StringFragment extends Fragment {
             }
             activateButton(strings[0]);
             textView.setText("Instruction To Child");
-            textView2.setText("Tap on the blinking string and hum the note");
+            textView2.setText("Play the blinking string, then hum the note");
         }
 
         callback = (OnModeChangeListener) getActivity();

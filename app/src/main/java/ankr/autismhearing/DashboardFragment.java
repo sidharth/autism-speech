@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class DashboardFragment extends Fragment {
     Button buttonStartWord;
 
     List<String> recordedWords = new ArrayList<>();
+    RadioButton guitarRadioButton, tampuraRadioButton;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -39,12 +41,35 @@ public class DashboardFragment extends Fragment {
         final MainActivity activity = (MainActivity)getActivity();
         gridView = (GridView)v.findViewById(R.id.grid_completed_words);
         buttonStartWord = (Button)v.findViewById(R.id.button_start_word);
+        tampuraRadioButton = (RadioButton)v.findViewById(R.id.radio_tampura);
+        guitarRadioButton = (RadioButton)v.findViewById(R.id.radio_guitar);
+
         readFromDb();
 
         buttonStartWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activity.switchToStringMode();
+            }
+        });
+
+        guitarRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity.instrument != 1) {
+                    activity.instrument = 1;
+                    activity.createMediaPlayers();
+                }
+            }
+        });
+
+        tampuraRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity.instrument != 0) {
+                    activity.instrument = 0;
+                    activity.createMediaPlayers();
+                }
             }
         });
 

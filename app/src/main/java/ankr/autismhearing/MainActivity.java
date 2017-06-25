@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public String[] words;
     public int wordIndex = 0;
     public int syllables[];
+    public int instrument = 0;
+
     public File basePath;
     public File baseFolder;
 
@@ -612,33 +614,32 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         drumPlayer[1] = pool.load(this, R.raw.d2,0);
         drumPlayer[2] = pool.load(this, R.raw.d3,0);
 
-        stringPlayer[0] = pool.load(this, R.raw.t0,0);
-        stringPlayer[1] = pool.load(this, R.raw.t1,0);
-        stringPlayer[2] = pool.load(this, R.raw.t2,0);
-        stringPlayer[3] = pool.load(this, R.raw.t3,0);
-        stringPlayer[4] = pool.load(this, R.raw.a,0);
-        stringPlayer[5] = pool.load(this, R.raw.b,0);
+        if (instrument == 0) {
+            //Tampura
+            stringPlayer[0] = pool.load(this, R.raw.t0,0);
+            stringPlayer[1] = pool.load(this, R.raw.t1,0);
+            stringPlayer[2] = pool.load(this, R.raw.t2,0);
+            stringPlayer[3] = pool.load(this, R.raw.t3,0);
+            stringPlayer[4] = pool.load(this, R.raw.a,0);
+            stringPlayer[5] = pool.load(this, R.raw.b,0);
+        }
+        else {
+            //Guitar
+            stringPlayer[0] = pool.load(this, R.raw.c,0);
+            stringPlayer[1] = pool.load(this, R.raw.d,0);
+            stringPlayer[2] = pool.load(this, R.raw.f,0);
+            stringPlayer[3] = pool.load(this, R.raw.g,0);
+            stringPlayer[4] = pool.load(this, R.raw.a,0);
+            stringPlayer[5] = pool.load(this, R.raw.b,0);
+        }
+
 
 //        rain = pool.load(this, R.raw.rain,0);
         firework = pool.load(this, R.raw.firework,0);
 
-
-
-//        drumPlayer[0] = MediaPlayer.create(this, R.raw.d1);
-//        drumPlayer[1] = MediaPlayer.create(this, R.raw.d2);
-//        drumPlayer[2] = MediaPlayer.create(this, R.raw.d3);
-//
-//        stringPlayer[0] = MediaPlayer.create(this, R.raw.t0);
-//        stringPlayer[1] = MediaPlayer.create(this, R.raw.t1);
-//        stringPlayer[2] = MediaPlayer.create(this, R.raw.t2);
-//        stringPlayer[3] = MediaPlayer.create(this, R.raw.t3);
-//        stringPlayer[4] = MediaPlayer.create(this, R.raw.a);
-//        stringPlayer[5] = MediaPlayer.create(this, R.raw.b);
-//
-//        rain = MediaPlayer.create(this, R.raw.rain);
-//        firework = MediaPlayer.create(this, R.raw.firework);
         isPlayerSet = true;
     }
+
 
 
 

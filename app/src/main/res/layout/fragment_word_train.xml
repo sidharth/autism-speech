@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/instruction_subtitle"
-                android:text="Play the string and sing the syllable to the note you just hummed."
+                android:text="Play the string(s), then sing the word to the note(s)"
                 android:gravity="center_horizontal"/>
 
             <ImageView

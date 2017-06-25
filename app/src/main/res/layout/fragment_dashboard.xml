@@ -20,6 +20,33 @@
         android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal"/>
 
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <RadioButton android:id="@+id/radio_tampura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Tampura"
+            android:checked="true"
+            app:buttonTint="#000"
+            android:textSize="@dimen/instruction_subtitle"/>
+
+        <RadioButton android:id="@+id/radio_guitar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Guitar"
+            android:checked="false"
+            app:buttonTint="#000"
+            android:textSize="@dimen/instruction_subtitle"/>
+
+    </RadioGroup>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
